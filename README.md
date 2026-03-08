@@ -1,6 +1,6 @@
 # Future PathX  
 ### Career Path Recommender with Integrated Resume Builder
-
+---
 Future PathX is a web-based platform designed to help students discover suitable career paths based on their skills, interests, and aptitude. The system also includes an integrated resume builder that allows users to create professional resumes easily.
 
 This platform aims to bridge the gap between students’ skills and industry requirements by providing career recommendations, skill gap analysis, learning resources, and resume development tools.
@@ -8,10 +8,10 @@ This platform aims to bridge the gap between students’ skills and industry req
 ---
 
 ## 🚀 Features
-
+---
 ### 1️⃣ Career Assessment Test
 Users can take an aptitude and interest-based test to determine the most suitable career paths.
-
+---
 ### 2️⃣ Career Recommendation System
 The system analyzes user responses and suggests relevant career options such as:
 - Software Developer
@@ -24,19 +24,19 @@ Each career includes:
 - Required skills
 - Job demand
 - Career growth opportunities
-
+---
 ### 3️⃣ Career Explorer
 Users can browse different careers and explore detailed information including salary range, required skills, and industry demand.
-
+---
 ### 4️⃣ Skill Gap Analyzer
 This module compares the user’s skills with the required skills for a selected career and displays:
 - Match percentage
 - Missing skills
 - Suggested learning resources
-
+---
 ### 5️⃣ Career Roadmap Generator
 Provides step-by-step guidance to achieve a selected career path, including beginner to advanced learning stages.
-
+---
 ### 6️⃣ Integrated Resume Builder
 Allows users to create professional resumes by entering:
 - Personal details
@@ -50,7 +50,7 @@ The resume builder provides:
 - Live resume preview
 - ATS-style resume scoring
 - Downloadable resume format
-
+---
 ### 7️⃣ Learning Resources
 Curated learning materials including:
 - Online courses
