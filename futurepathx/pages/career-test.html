@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Test – Future PathX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<style>
+.test-container { max-width: 700px; margin: 0 auto; padding: 2rem; }
+.question-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.4s ease;
+}
+.question-number { color: var(--accent); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem; }
+.question-text { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; margin-bottom: 1.25rem; line-height: 1.4; }
+.options { display: flex; flex-direction: column; gap: 0.6rem; }
+.option {
+  padding: 0.85rem 1.25rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 0.92rem;
+  text-align: left;
+}
+.option:hover { border-color: var(--accent); color: var(--accent); background: rgba(56,189,248,0.05); }
+.option.selected { border-color: var(--accent); background: rgba(56,189,248,0.1); color: var(--accent); }
+.test-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+.test-progress { text-align: center; margin-bottom: 2rem; }
+.test-progress-label { color: var(--text2); font-size: 0.85rem; margin-bottom: 0.5rem; }
+.test-progress-bar { height: 6px; background: var(--surface2); border-radius: 10px; overflow: hidden; }
+.test-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 10px; transition: width 0.4s ease; }
+.result-card {
+  background: var(--surface);
+  border: 1px solid rgba(56,189,248,0.3);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  text-align: center;
+  animation: fadeUp 0.5s ease;
+}
+.result-icon { font-size: 4rem; margin-bottom: 1rem; }
+.result-title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; }
+.result-subtitle { color: var(--text2); margin-bottom: 2rem; }
+.result-careers { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+.result-career {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.result-career-name { font-weight: 600; }
+.result-career-score { color: var(--accent); font-weight: 700; font-family: var(--font-display); }
+.result-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-brand">Future<span>PathX</span></div>
+  <div class="nav-links">
+    <a href="../index.html">Dashboard</a>
+    <a href="career-test.html" class="active">Career Test</a>
+    <a href="career-explorer.html">Explore Careers</a>
+    <a href="resume-builder.html">Resume Builder</a>
+    <a href="roadmap.html">Roadmap</a>
+    <a href="skill-gap.html">Skill Gap</a>
+    <a href="resources.html">Resources</a>
+  </div>
+  <div class="nav-user"><div class="avatar">B</div><span>Bharath</span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>🧪 Career Assessment Test</h1>
+    <p>Answer 10 questions to discover your best-fit career paths based on your personality, skills, and interests.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="test-container" id="testArea">
+    <div class="test-progress">
+      <div class="test-progress-label">Question <span id="qNum">1</span> of 10</div>
+      <div class="test-progress-bar"><div class="test-progress-fill" id="progressFill" style="width:10%"></div></div>
+    </div>
+    <div id="questionArea"></div>
+    <div class="test-nav">
+      <button class="btn btn-ghost" id="prevBtn" onclick="prevQ()" style="visibility:hidden">← Previous</button>
+      <button class="btn btn-accent" id="nextBtn" onclick="nextQ()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-bubble" onclick="toggleChat()">💬</div>
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header"><span>🤖 AI Career Assistant</span><button onclick="toggleChat()">✕</button></div>
+    <div class="chat-messages" id="chatMessages"><div class="msg bot">Hi! Take the career test and I'll help explain your results!</div></div>
+    <div class="chat-input"><input type="text" id="chatInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter') sendChat()"><button onclick="sendChat()">→</button></div>
+  </div>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+const questions = [
+  { text: "Do you enjoy solving complex analytical problems?", options: ["Yes, I love it", "Sometimes", "Not really", "No, I prefer creative work"], scores: { tech: [3,1,0,0], data: [3,1,0,0], design: [0,1,2,3], management: [1,2,1,1] } },
+  { text: "How comfortable are you with writing code or programming?", options: ["Very comfortable", "Somewhat comfortable", "Learning it", "Not comfortable"], scores: { tech: [3,2,1,0], data: [2,2,1,0], design: [1,1,1,0], management: [0,1,1,1] } },
+  { text: "Do you enjoy working with large datasets and finding patterns?", options: ["Yes, very much", "It's interesting", "Not particularly", "I prefer other things"], scores: { tech: [1,2,0,0], data: [3,2,0,0], design: [0,1,1,0], management: [1,1,1,1] } },
+  { text: "How would you describe your creativity level?", options: ["Highly creative", "Moderately creative", "Somewhat technical", "Highly technical"], scores: { tech: [0,1,2,3], data: [0,1,2,2], design: [3,2,1,0], management: [1,2,2,1] } },
+  { text: "Do you enjoy leading teams and making strategic decisions?", options: ["Yes, definitely", "Sometimes", "I prefer individual work", "Not my thing"], scores: { tech: [0,1,2,1], data: [0,1,2,1], design: [0,1,2,1], management: [3,2,1,0] } },
+  { text: "How do you feel about continuous learning in fast-changing fields?", options: ["I love it", "It's fine", "Somewhat overwhelming", "I prefer stable knowledge"], scores: { tech: [3,2,1,0], data: [3,2,1,0], design: [2,2,1,0], management: [1,2,2,1] } },
+  { text: "Do you enjoy designing visual interfaces or user experiences?", options: ["Yes, it's my passion", "I like it", "Not really", "No preference"], scores: { tech: [0,1,2,1], data: [0,0,2,1], design: [3,2,0,0], management: [0,1,1,2] } },
+  { text: "How important is social impact in your career?", options: ["Extremely important", "Somewhat important", "Nice to have", "Not a priority"], scores: { tech: [1,2,1,1], data: [1,2,1,1], design: [2,2,1,0], management: [3,2,1,0] } },
+  { text: "Do you prefer working alone or collaborating with a team?", options: ["Alone mostly", "Mix of both", "Team environment", "Depends on project"], scores: { tech: [2,2,1,2], data: [2,2,1,2], design: [2,2,1,2], management: [0,1,3,2] } },
+  { text: "Which activity excites you the most?", options: ["Building AI systems", "Analyzing business data", "Designing beautiful apps", "Leading a product team"], scores: { tech: [3,1,1,0], data: [0,3,0,1], design: [0,0,3,1], management: [0,1,1,3] } }
+];
+
+let current = 0;
+let answers = new Array(10).fill(null);
+const tracks = { tech: 0, data: 0, design: 0, management: 0 };
+
+function renderQuestion() {
+  const q = questions[current];
+  document.getElementById('qNum').textContent = current + 1;
+  document.getElementById('progressFill').style.width = `${(current + 1) * 10}%`;
+  document.getElementById('prevBtn').style.visibility = current === 0 ? 'hidden' : 'visible';
+  document.getElementById('nextBtn').textContent = current === 9 ? 'See Results 🎉' : 'Next →';
+
+  const area = document.getElementById('questionArea');
+  area.innerHTML = `
+    <div class="question-card">
+      <div class="question-number">Question ${current + 1}</div>
+      <div class="question-text">${q.text}</div>
+      <div class="options">
+        ${q.options.map((o, i) => `<button class="option ${answers[current] === i ? 'selected' : ''}" onclick="selectAnswer(${i})">${o}</button>`).join('')}
+      </div>
+    </div>`;
+}
+
+function selectAnswer(i) {
+  answers[current] = i;
+  document.querySelectorAll('.option').forEach((el, idx) => {
+    el.classList.toggle('selected', idx === i);
+  });
+}
+
+function nextQ() {
+  if (answers[current] === null) { alert('Please select an answer to continue.'); return; }
+  if (current < 9) { current++; renderQuestion(); }
+  else showResults();
+}
+
+function prevQ() {
+  if (current > 0) { current--; renderQuestion(); }
+}
+
+function showResults() {
+  // Calculate scores
+  const totals = { tech: 0, data: 0, design: 0, management: 0 };
+  questions.forEach((q, qi) => {
+    const ans = answers[qi];
+    if (ans !== null) {
+      Object.keys(totals).forEach(k => { totals[k] += q.scores[k][ans]; });
+    }
+  });
+  const max = Math.max(...Object.values(totals));
+  const careers = [
+    { name: '🤖 AI / ML Engineer', score: totals.tech, key: 'tech' },
+    { name: '📊 Data Scientist', score: totals.data, key: 'data' },
+    { name: '🎨 UI/UX Designer', score: totals.design, key: 'design' },
+    { name: '📋 Product Manager', score: totals.management, key: 'management' }
+  ].sort((a, b) => b.score - a.score);
+
+  const maxScore = 30;
+  const top = careers[0];
+
+  document.getElementById('testArea').innerHTML = `
+    <div class="result-card">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">Your Best Career Fit</div>
+      <div class="result-subtitle">Based on your answers, here are your personalized career matches:</div>
+      <div class="result-careers">
+        ${careers.map((c, i) => `
+          <div class="result-career">
+            <span class="result-career-name">${i === 0 ? '⭐ ' : ''}${c.name}</span>
+            <span class="result-career-score">${Math.round((c.score / maxScore) * 100)}% Match</span>
+          </div>`).join('')}
+      </div>
+      <div class="result-actions">
+        <a href="roadmap.html" class="btn btn-accent">View Roadmap for ${top.name}</a>
+        <a href="skill-gap.html" class="btn btn-ghost">Analyze Skill Gap</a>
+        <button class="btn btn-ghost" onclick="location.reload()">Retake Test</button>
+      </div>
+    </div>`;
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
