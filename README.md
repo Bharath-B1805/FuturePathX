@@ -1,6 +1,3 @@
-# FuturePathX
-AI-based Career Path Recommender with Integrated Resume Builder for students
-
 # Future PathX  
 ### Career Path Recommender with Integrated Resume Builder
 
@@ -82,26 +79,28 @@ Tools:
 ---
 
 ## 📂 Project Structure
+
+```
 futurepathx
 │
 ├── index.html
 ├── css
-│ └── main.css
+│   └── main.css
 ├── js
-│ └── main.js
+│   └── main.js
 │
 ├── pages
-│ ├── career-test.html
-│ └── career-explorer.html
+│   ├── career-test.html
+│   └── career-explorer.html
 │
 ├── details
-│ ├── resume-builder.html
-│ ├── roadmap.html
-│ └── skill-gap.html
+│   ├── resume-builder.html
+│   ├── roadmap.html
+│   └── skill-gap.html
 │
 └── path
-└── resources.html
-
+    └── resources.html
+```
 
 ---
 
