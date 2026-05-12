@@ -134,5 +134,5 @@ No server setup is required.
 ---
 
 ## 👨‍💻 Author
-
+~Bharath B
 Developed as a student project for career guidance and resume development.
